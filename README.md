@@ -39,10 +39,7 @@ This project implements an AI-powered chatbot with retrieval-augmented generatio
 - **Google Drive Integration:** Fetches files dynamically for processing.
 - **Recursive Character Text Splitter:** Ensures efficient handling of large text documents.
 
-## Video Demonstration
-[![Watch the Video](https://drive.google.com/file/d/1GctmZOCmxMXqXgIeMth3nOzlDBPCF8wr/view?usp=drive_link)
 
-*(Replace `YOUR_VIDEO_ID` with the actual video link.)*
 
 ## How to Run
 1. Clone this repository:
