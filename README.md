@@ -40,7 +40,7 @@ This project implements an AI-powered chatbot with retrieval-augmented generatio
 - **Recursive Character Text Splitter:** Ensures efficient handling of large text documents.
 
 ## Video Demonstration
-[![Watch the Video](https://drive.google.com/drive/u/0/home)
+[![Watch the Video](https://drive.google.com/file/d/1GctmZOCmxMXqXgIeMth3nOzlDBPCF8wr/view?usp=drive_link)
 
 *(Replace `YOUR_VIDEO_ID` with the actual video link.)*
 
