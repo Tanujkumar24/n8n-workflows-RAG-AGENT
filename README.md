@@ -13,7 +13,7 @@ This project implements an AI-powered chatbot with retrieval-augmented generatio
 
 ## Execution Flow
 ### Document Ingestion Workflow
-![Document Ingestion Workflow](Screenshot%20(182).png)
+![Document Ingestion Workflow](https://github.com/Tanujkumar24/n8n-workflows-RAG-AGENT/blob/main/Document%20Ingestion%20Workflow.png)
 1. **Trigger:** Activated when clicking "Test workflow".
 2. **Google Drive Integration:** Downloads files containing documents.
 3. **Default Data Loader:** Loads the document for processing.
@@ -22,7 +22,7 @@ This project implements an AI-powered chatbot with retrieval-augmented generatio
 6. **Vector Storage:** Stores the embeddings in **Pinecone Vector Store**.
 
 ### Chatbot Workflow
-![Chatbot Workflow](promptchat.png)
+![Chatbot Workflow](https://github.com/Tanujkumar24/n8n-workflows-RAG-AGENT/blob/main/Chatbot%20Workflow.png)
 1. **Trigger:** The chatbot is activated when a chat message is received.
 2. **AI Agent:** Processes the message and interacts with different components.
 3. **Memory Handling:** Uses **Window Buffer Memory** to store conversation context.
