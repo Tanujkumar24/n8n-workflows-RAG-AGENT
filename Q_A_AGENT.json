@@ -1,0 +1,237 @@
+{
+  "name": "Q&A-AGENT",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -420,
+        -180
+      ],
+      "id": "27f6f329-d80b-4cdb-8793-e03b2b250303",
+      "name": "When chat message received",
+      "webhookId": "a21f1965-944c-4973-84bf-e1298e160860"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "You are an advanced AI assistant designed to answer user queries with accuracy and efficiency. Your responses are generated using a combination of real-time conversational memory and retrieval-augmented generation (RAG) powered by the Pinecone Vector Store. You leverage the Groq Chat Model for generating responses and use Hugging Face embeddings to enhance information retrieval. Your memory is managed with a window buffer, ensuring that relevant context is retained throughout the conversation.\n\nInstructions\nUnderstand User Queries: Carefully interpret the user’s question, identifying key topics and intent.\nRetrieve Relevant Information: Use the Pinecone Vector Store to find the most relevant stored knowledge before generating a response.\nGenerate Concise Answers: Respond in a clear, concise, and informative manner, avoiding unnecessary details while ensuring completeness.\nUse Memory Effectively: Refer to the window buffer memory to maintain context and coherence across multiple exchanges.\nFallback Strategy: If relevant information is not found in the vector store, use the Groq Chat Model to generate a thoughtful response.\nResponse Format\nBrief and Precise: Keep answers short, typically 1-3 sentences.\nFact-Based & Contextual: Ensure responses are accurate and aligned with retrieved knowledge.\nNo Speculation: If uncertain, indicate the limitation rather than providing misleading information.\nExample Prompt-Response Interaction\nUser: \"What is Retrieval-Augmented Generation (RAG)?\"\nAI Agent: \"Retrieval-Augmented Generation (RAG) is an AI technique that enhances responses by retrieving relevant external information from a knowledge base or vector store before generating an answer. This improves accuracy and contextual relevance.\"\n\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        -180,
+        -260
+      ],
+      "id": "f80fae9e-5493-4649-b0b8-676a7fa378f1",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": "llama3-70b-8192",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        -260,
+        100
+      ],
+      "id": "424c639c-a245-4f02-be6c-34ab8752dae7",
+      "name": "Groq Chat Model",
+      "credentials": {
+        "groqApi": {
+          "id": "IqAtE36Qt668UwOM",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        -140,
+        80
+      ],
+      "id": "f5513dda-e548-4262-8699-13bb5fbd0229",
+      "name": "Window Buffer Memory"
+    },
+    {
+      "parameters": {
+        "name": "IOSinformation",
+        "description": "retrive context from vector store"
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolVectorStore",
+      "typeVersion": 1,
+      "position": [
+        100,
+        -120
+      ],
+      "id": "70328d8c-4224-418d-bb32-0573831efe3b",
+      "name": "Answer questions with a vector store"
+    },
+    {
+      "parameters": {
+        "model": "llama3-70b-8192",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        460,
+        60
+      ],
+      "id": "b89dab36-2275-4afe-ac90-e5d643ea6a27",
+      "name": "Groq Chat Model1",
+      "credentials": {
+        "groqApi": {
+          "id": "IqAtE36Qt668UwOM",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "pineconeIndex": {
+          "__rl": true,
+          "value": "qa-bot",
+          "mode": "list",
+          "cachedResultName": "qa-bot"
+        },
+        "options": {
+          "pineconeNamespace": "IOS"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
+      "typeVersion": 1,
+      "position": [
+        20,
+        80
+      ],
+      "id": "61ee8d7f-e730-423f-8eaf-e1bc5090f146",
+      "name": "Pinecone Vector Store",
+      "credentials": {
+        "pineconeApi": {
+          "id": "CRGBpWR87ETRqiYj",
+          "name": "PineconeApi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelName": "sangmini/msmarco-cotmae-MiniLM-L12_en-ko-ja",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsHuggingFaceInference",
+      "typeVersion": 1,
+      "position": [
+        160,
+        220
+      ],
+      "id": "426395bf-3907-46dc-957e-162fc2a1caaa",
+      "name": "Embeddings HuggingFace Inference",
+      "credentials": {
+        "huggingFaceApi": {
+          "id": "SrGYLMP1OpK9SKn6",
+          "name": "HuggingFaceApi account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Window Buffer Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Answer questions with a vector store": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Answer questions with a vector store",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pinecone Vector Store": {
+      "ai_vectorStore": [
+        [
+          {
+            "node": "Answer questions with a vector store",
+            "type": "ai_vectorStore",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings HuggingFace Inference": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Pinecone Vector Store",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "fb4a8ec8-9939-4149-834a-9bde09f36f3a",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "32b2bcd670e5aa404bc0dd88d2ab53b50f284e206b121388c6ee06c44f2c730d"
+  },
+  "id": "74JV70Q2aVovUqPJ",
+  "tags": []
+}
